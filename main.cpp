@@ -3,13 +3,24 @@
 #include <chrono>
 #include<string>
 #include "colours.h"
+#include <vector>
 using namespace std;
 
-void write(string msg) {
+void write(string hello) {
 
-	cout << GRN("" + msg + "");
+int x=0;
+while ( hello[x] != '\0')
+{
+	cout << FOREGRN << hello[x];
+	usleep(10000);
+	x++;
+};
+
 
 }
+
+string found_planets = "";
+int pf = 0;
 
 string type[] {
 
@@ -27,9 +38,9 @@ string star[] {
 	"Blue dwarf",
 	"Yellow dwarf",
 	"Brown dwarf",
-	"Red dwarf & orange dwarf (binary)"
-	"Yellow & orange dwarf (binary)"
-	"Blue dwarf & yellow dwarf (binary)"
+	"Red dwarf & orange dwarf (binary)",
+	"Yellow & orange dwarf (binary)",
+	"Blue dwarf & yellow dwarf (binary)",
 	"Red dwarf & red dwarf (binary)"
 
 };
@@ -44,7 +55,11 @@ string life[] {
 
 };
 
+//points
+int points = 10;
+
 void genPlanet() {
+
 	//damn bro this is gonna be hard...
 	//lets go tho
 	//hmsstt
@@ -83,26 +98,35 @@ void genPlanet() {
 	write("Any life?: " + NewPlanet.life + "\n");
 	write("Satellites: " + to_string(NewPlanet.satellites) + "\n");
 
+	pf++;
+	found_planets += "RJ" + to_string(pf) + "\nMass (earth masses): " + to_string(NewPlanet.mass) + "\nType: " + NewPlanet.type + "\n\n";
+	points++;
+
 	cout << RED("\nPress any key to continue...\n");
 	getchar();
+
+
 
 }
 
 int main() {
 
-	write("Welcome to Mission Procoyon!\n");
+	write("Welcome to Mission Procoyon!\n\n");
 
-	cout << RED("\nPress any key to continue...\n");
-	getchar();
+	sleep(2);
 
-	write("Your job is to find and study planets. When you find a planet, you get points!\n");
+	write("Your job is to find and study planets. When you find a planet, you get points!\n\n");
 
-	cout << RED("\nPress any key to continue...\n");
-	getchar();
+	sleep(2);
+
+	write("You'll start off with 10 points. Enjoy!\n\n");
+
+	sleep(2);	
 
 	write(">> Welcome to Mission Procoyon! <<\n");
 	write("    Press 1 to search planets\n");
 	write("   Press 2 to view your points\n");
+	write("   Press 3 to view your planets\n");
 	write("==================================\n");
 
 	string input;
@@ -117,7 +141,23 @@ int main() {
 
 		if (input == "1") {
 
-			genPlanet();
+			if (rand() % 5 == 2) {
+				genPlanet();
+			} else {
+				write ("\nBad luck, you didn't find anything.\n");
+
+				cout << RED("\nPress any key to continue...\n");
+				getchar();
+			}
+
+		}	else if (input == "2") {
+
+			write("\nYou have " + to_string(points) + " points.\n\n");
+
+		} else if (input == "3") {
+
+			write("You have found these planets\n\n");
+			write(found_planets);
 
 		} else {
 
